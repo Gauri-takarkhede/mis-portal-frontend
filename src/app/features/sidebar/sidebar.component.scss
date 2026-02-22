@@ -1,0 +1,23 @@
+.dropdown-toggle {
+  outline: 0;
+}
+
+.nav-flush .nav-link {
+  border-radius: 0;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+.lh-tight {
+  line-height: 1.25;
+}
+
+.nav {
+  cursor: pointer;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #3167b9 !important;
+  color: white !important;
+}

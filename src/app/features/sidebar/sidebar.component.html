@@ -1,0 +1,110 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+/>
+
+<div
+  class="d-flex flex-column flex-shrink-0 p-3 bg-light h-100"
+  style="width: 280px"
+>
+  <a
+    href="/"
+    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+  >
+    <img
+      src="../../../assets/student-logo.png"
+      alt=""
+      style="height: 50px"
+      class="mx-2"
+    />
+    <span class="fs-4">COEP Tech</span>
+  </a>
+  <hr />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li>
+      <div
+        routerLink="dashboard"
+        class="nav-link link-dark d-flex"
+        routerLinkActive="active"
+      >
+        <mat-icon>dashboard</mat-icon>
+        <span class="mx-2">Dashboard</span>
+      </div>
+    </li>
+    <li *ngIf="userRole == 'faculty'">
+      <div
+        routerLink="students"
+        class="nav-link link-dark d-flex"
+        routerLinkActive="active"
+      >
+        <mat-icon>school</mat-icon>
+        <span class="mx-2">Students</span>
+      </div>
+    </li>
+    <li>
+      <div
+        routerLink="electives"
+        class="nav-link link-dark d-flex"
+        routerLinkActive="active"
+      >
+        <mat-icon>menu_book</mat-icon>
+        <span class="mx-2">Electives</span>
+      </div>
+    </li>
+    <li>
+      <div
+        routerLink="results"
+        class="nav-link link-dark d-flex"
+        routerLinkActive="active"
+      >
+        <mat-icon>grading</mat-icon>
+        <span class="mx-2">Results</span>
+      </div>
+    </li>
+    <li>
+      <div
+        routerLink="bonafide"
+        class="nav-link link-dark d-flex"
+        routerLinkActive="active"
+      >
+        <mat-icon>article</mat-icon>
+        <span class="mx-2">Bonafide</span>
+      </div>
+    </li>
+    <!-- <li>
+      <div
+        routerLink="query"
+        class="nav-link link-dark d-flex"
+        routerLinkActive="active"
+      >
+        <mat-icon>help_center</mat-icon>
+        <span class="mx-2">Query</span>
+      </div>
+    </li> -->
+  </ul>
+  <hr />
+  <div class="dropdown">
+    <a
+      href="#"
+      class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+      id="dropdownUser2"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <img
+        [src]="profileImage || './assets/profile.jpg'"
+        alt=""
+        width="32"
+        height="32"
+        class="rounded-circle me-2"
+      />
+      <strong>{{ studentName }}</strong>
+    </a>
+    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+      <li><a class="dropdown-item" href="#">Settings</a></li>
+      <li><a class="dropdown-item" href="#">Profile</a></li>
+      <li><hr class="dropdown-divider" /></li>
+      <li class="dropdown-item" (click)="signOut()">Sign out</li>
+    </ul>
+  </div>
+</div>
