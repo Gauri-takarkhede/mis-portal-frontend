@@ -69,7 +69,7 @@ export class StudentDashboardComponent implements OnInit {
 
   loadStudent() {
     const user = this.auth.getUser();
-    const mis = user.id;
+    const mis = user.mis;
     this.studentService.getProfile(mis).subscribe({
       next: (res: any) => {
         console.log(res);

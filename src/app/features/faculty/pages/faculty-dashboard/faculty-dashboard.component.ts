@@ -1,8 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { FacultyService } from '../../services/faculty.service';
-import { StudentService } from 'src/app/features/student/services/student.service';
 import { AuthService } from 'src/app/core/auth.service';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -39,7 +37,6 @@ export class FacultyDashboardComponent {
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
-    private studentService: StudentService,
     private auth: AuthService,
     private fb: FormBuilder,
     private fileUploadService: FileUploadService,
@@ -68,9 +65,9 @@ export class FacultyDashboardComponent {
 
   loadFaculty() {
     const user = this.auth.getUser();
-    const mis = user.id;
+    const mis = user.mis;
     this.mis = mis;
-    this.studentService.getProfile(mis).subscribe({
+    this.facultyService.getProfile(mis).subscribe({
       next: (res: any) => {
         console.log(res);
         this.student = res;

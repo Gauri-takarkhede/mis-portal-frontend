@@ -11,6 +11,15 @@ export class FacultyService {
 
   constructor(private http: HttpClient) {}
 
+  getProfile(mis: any) {
+    const token = sessionStorage.getItem('token');
+    return this.http.get(`${this.facultyBaseUrl}/profile/${mis}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   // CREATE elective module
   createElective(payload: any) {
     const token = sessionStorage.getItem('token');
