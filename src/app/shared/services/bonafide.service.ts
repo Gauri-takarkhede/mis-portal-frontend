@@ -12,7 +12,7 @@ export class BonafideService {
 
   createRequest(data: any) {
     const token = sessionStorage.getItem('token');
-    return this.http.post(`${this.base}/request`, data, {
+    return this.http.post(`${this.base}/`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -21,7 +21,7 @@ export class BonafideService {
 
   getMyRequests() {
     const token = sessionStorage.getItem('token');
-    return this.http.get<any>(`${this.base}/my-requests`, {
+    return this.http.get<any>(`${this.base}/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

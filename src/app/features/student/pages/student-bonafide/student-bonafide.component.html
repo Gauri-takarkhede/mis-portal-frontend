@@ -34,9 +34,9 @@
       <td mat-cell *matCellDef="let r">
         <span
           [ngClass]="{
-            'text-warning': r.status === 'pending',
-            'text-success': r.status === 'approved',
-            'text-danger': r.status === 'rejected'
+            'text-warning': r.status === 'PENDING',
+            'text-success': r.status === 'APPROVED',
+            'text-danger': r.status === 'REJECTED',
           }"
         >
           {{ r.status | titlecase }}

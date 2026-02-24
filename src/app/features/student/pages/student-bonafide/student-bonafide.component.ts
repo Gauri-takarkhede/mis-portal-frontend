@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/core/auth.service';
 import { BonafideService } from 'src/app/shared/services/bonafide.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class StudentBonafideComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private bonafideService: BonafideService
+    private bonafideService: BonafideService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -28,8 +30,13 @@ export class StudentBonafideComponent implements OnInit {
   getMyRequestsList() {
     this.bonafideService.getMyRequests().subscribe({
       next: (res) => {
-        this.requests = res.data;
+        this.requests = res;
         this.loading = false;
+      },
+      error: (error) => {
+        this.message = 'Error submitting request';
+        this.loading = false;
+        console.log(error);
       },
     });
   }
@@ -45,9 +52,10 @@ export class StudentBonafideComponent implements OnInit {
         this.form.reset();
         this.getMyRequestsList();
       },
-      error: () => {
+      error: (error) => {
         this.message = 'Error submitting request';
         this.loading = false;
+        console.log(error);
       },
     });
   }

@@ -72,7 +72,6 @@ export class StudentDashboardComponent implements OnInit {
     const mis = user.mis;
     this.studentService.getProfile(mis).subscribe({
       next: (res: any) => {
-        console.log(res, 'student dashboard');
         this.student = res;
         this.studentDetails = res.studentDetails;
         this.imagePreview = res.profileImage;

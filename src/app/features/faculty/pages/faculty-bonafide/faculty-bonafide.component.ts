@@ -17,7 +17,7 @@ export class FacultyBonafideComponent {
 
   fetchAll() {
     this.bonafideService.getAllRequests().subscribe((res) => {
-      this.requests = res.data;
+      this.requests = res;
     });
   }
 
