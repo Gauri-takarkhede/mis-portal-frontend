@@ -82,15 +82,17 @@ export class FacultyService {
     return this.http.patch(`${this.baseUrl}/bonafide/reject/${id}`, {});
   }
 
-  addStudentDetails(data: any) {
-    return this.http.post(`${this.facultyBaseUrl}/addStudentDetails`, { data });
-  }
-
   getAllStudents() {
     return this.http.get(`${this.facultyBaseUrl}/allStudents`);
   }
 
-  addFacultyDetails(data: any) {
-    return this.http.post(`${this.facultyBaseUrl}/addFacultyDetails`, { data });
+  addFacultyDetails(mis: string, data: any) {
+    const token = sessionStorage.getItem('token');
+
+    return this.http.post(`${this.facultyBaseUrl}/add-details/${mis}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 }

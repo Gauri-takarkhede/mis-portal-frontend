@@ -14,15 +14,21 @@ export class StudentService {
   getAllStudents() {
     const token = sessionStorage.getItem('token');
 
-    return this.http.get<any>(`${this.baseUrl}/getAllStudents`, {
+    return this.http.get<any>(`${this.baseUrl}/profiles`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
   }
 
-  getStudentById(id: any) {
-    return this.http.get(`${this.baseUrl}/${id}`);
+  getAllStudentsDetails() {
+    const token = sessionStorage.getItem('token');
+
+    return this.http.get<any>(`${this.baseUrl}/profilesDetails`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   getProfile(mis: any) {
@@ -34,8 +40,13 @@ export class StudentService {
     });
   }
 
-  getAllProfiles() {
-    return this.http.get(`${this.baseUrl}/profiles`);
+  getProfileDetails(mis: any) {
+    const token = sessionStorage.getItem('token');
+    return this.http.get(`${this.baseUrl}/profileDetails/${mis}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   getNonPublishedModules() {
@@ -45,6 +56,15 @@ export class StudentService {
   submitElectives(data: any) {
     const token = sessionStorage.getItem('token');
     return this.http.post(`${this.baseUrl}/submitElectives`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  addStudentDetails(mis: string, data: any) {
+    const token = sessionStorage.getItem('token');
+    return this.http.post(`${this.baseUrl}/add-details/${mis}`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

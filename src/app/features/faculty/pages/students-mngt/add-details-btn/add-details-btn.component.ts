@@ -21,7 +21,7 @@ export class AddDetailsBtnComponent implements ICellRendererAngularComp {
 
   agInit(params: ICellRendererParams): void {
     this.params = params.data;
-    this.value = params.data.studentDetailsId;
+    this.value = params.data.studentDetails;
   }
   refresh(params: ICellRendererParams) {
     return true;

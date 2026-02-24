@@ -45,10 +45,22 @@
           <mat-form-field class="fields">
             <mat-label>Department</mat-label>
             <mat-select formControlName="department">
-              <mat-option *ngFor="let dept of departments" [value]="dept">{{
-                dept
-              }}</mat-option>
+              <mat-option
+                *ngFor="let dept of departments"
+                [value]="dept.value"
+                >{{ dept.label }}</mat-option
+              >
             </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="fields">
+            <mat-label>Phone Number</mat-label>
+            <input
+              matInput
+              placeholder="Student's Number"
+              formControlName="phone"
+            />
           </mat-form-field>
         </div>
         <div class="col-md-6">
@@ -104,11 +116,11 @@
             <div class="col-md-6">
               <mat-form-field class="fields">
                 <mat-label>Blood Group</mat-label>
-                <mat-select formControlName="selectedBloodGroup">
+                <mat-select formControlName="bloodGroup">
                   <mat-option
                     *ngFor="let group of bloodGroups"
-                    [value]="group"
-                    >{{ group }}</mat-option
+                    [value]="group.value"
+                    >{{ group.label }}</mat-option
                   >
                 </mat-select>
               </mat-form-field>
@@ -119,8 +131,8 @@
                 <mat-select formControlName="category">
                   <mat-option
                     *ngFor="let category of categories"
-                    [value]="category"
-                    >{{ category }}</mat-option
+                    [value]="category.value"
+                    >{{ category.label }}</mat-option
                   >
                 </mat-select>
               </mat-form-field>
@@ -131,8 +143,8 @@
                 <mat-select formControlName="religion">
                   <mat-option
                     *ngFor="let religion of religions"
-                    [value]="religion"
-                    >{{ religion }}</mat-option
+                    [value]="religion.value"
+                    >{{ religion.label }}</mat-option
                   >
                 </mat-select>
               </mat-form-field>
@@ -141,9 +153,11 @@
               <mat-form-field class="fields">
                 <mat-label>Gender</mat-label>
                 <mat-select formControlName="gender">
-                  <mat-option *ngFor="let gender of genders" [value]="gender">{{
-                    gender
-                  }}</mat-option>
+                  <mat-option
+                    *ngFor="let gender of genders"
+                    [value]="gender.value"
+                    >{{ gender.label }}</mat-option
+                  >
                 </mat-select>
               </mat-form-field>
             </div>
@@ -182,9 +196,11 @@
               <mat-form-field class="fields">
                 <mat-label>Course</mat-label>
                 <mat-select formControlName="course">
-                  <mat-option *ngFor="let course of courses" [value]="course">{{
-                    course
-                  }}</mat-option>
+                  <mat-option
+                    *ngFor="let course of courses"
+                    [value]="course.value"
+                    >{{ course.label }}</mat-option
+                  >
                 </mat-select>
               </mat-form-field>
             </div>
@@ -242,7 +258,7 @@
           </p>
           <p>
             <strong>Blood Group:</strong>
-            {{ personalDetailsFormGroup.value.selectedBloodGroup }}
+            {{ personalDetailsFormGroup.value.bloodGroup }}
           </p>
           <p>
             <strong>Category:</strong>

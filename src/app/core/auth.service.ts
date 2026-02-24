@@ -56,4 +56,12 @@ export class AuthService {
     const decoded: any = jwtDecode(token);
     return decoded.name;
   }
+
+  getUserMis(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    const decoded: any = jwtDecode(token);
+    return decoded.mis;
+  }
 }

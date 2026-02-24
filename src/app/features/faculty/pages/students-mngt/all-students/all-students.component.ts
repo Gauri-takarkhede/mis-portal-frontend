@@ -15,7 +15,7 @@ export class AllStudentsComponent implements OnInit {
   columnDefs: ColDef[] = [
     {
       headerName: 'Name',
-      field: 'name',
+      field: 'username',
       sortable: true,
       filter: true,
       pinned: true,

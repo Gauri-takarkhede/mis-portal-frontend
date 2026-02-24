@@ -76,13 +76,10 @@
               </div>
               <div class="col-md-6 py-2">
                 <label>Blood Group</label>
-                <select
-                  formControlName="selectedBloodGroup"
-                  class="form-control"
-                >
+                <select formControlName="bloodGroup" class="form-control">
                   <option value="">Select Blood Group</option>
-                  <option *ngFor="let bg of bloodGroups" [value]="bg">
-                    {{ bg }}
+                  <option *ngFor="let bg of bloodGroups" [value]="bg.value">
+                    {{ bg.label }}
                   </option>
                 </select>
               </div>
@@ -90,8 +87,8 @@
                 <label>Category</label>
                 <select formControlName="category" class="form-control">
                   <option value="">Select Category</option>
-                  <option *ngFor="let cat of categories" [value]="cat">
-                    {{ cat }}
+                  <option *ngFor="let cat of categories" [value]="cat.value">
+                    {{ cat.label }}
                   </option>
                 </select>
               </div>
@@ -99,8 +96,8 @@
                 <label>Religion</label>
                 <select formControlName="religion" class="form-control">
                   <option value="">Select Religion</option>
-                  <option *ngFor="let rel of religions" [value]="rel">
-                    {{ rel }}
+                  <option *ngFor="let rel of religions" [value]="rel.value">
+                    {{ rel.label }}
                   </option>
                 </select>
               </div>
@@ -108,9 +105,9 @@
                 <label>Gender</label>
                 <select formControlName="gender" class="form-control">
                   <option value="">Select Gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
+                  <option *ngFor="let gender of genders" [value]="gender.value">
+                    {{ gender.label }}
+                  </option>
                 </select>
               </div>
               <div class="col-md-6 py-2">
@@ -129,8 +126,8 @@
                 <label>Course</label>
                 <select formControlName="course" class="form-control">
                   <option value="">Select Course</option>
-                  <option *ngFor="let c of courses" [value]="c">
-                    {{ c }}
+                  <option *ngFor="let c of courses" [value]="c.value">
+                    {{ c.label }}
                   </option>
                 </select>
               </div>

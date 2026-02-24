@@ -53,7 +53,7 @@ export class StudentDashboardComponent implements OnInit {
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      selectedBloodGroup: ['', Validators.required],
+      bloodGroup: ['', Validators.required],
       category: ['', Validators.required],
       religion: ['', Validators.required],
       gender: ['', Validators.required],
@@ -72,22 +72,22 @@ export class StudentDashboardComponent implements OnInit {
     const mis = user.mis;
     this.studentService.getProfile(mis).subscribe({
       next: (res: any) => {
-        console.log(res);
+        console.log(res, 'student dashboard');
         this.student = res;
-        this.studentDetails = res.studentDetailsId;
+        this.studentDetails = res.studentDetails;
         this.imagePreview = res.profileImage;
         sessionStorage.setItem(
           'profileImage',
           JSON.stringify(this.imagePreview ? this.imagePreview : ''),
         );
         this.loading = false;
-        const formattedAdmissionDate = this.studentDetails.Date_of_Admission
-          ? new Date(this.studentDetails.Date_of_Admission)
+        const formattedAdmissionDate = this.studentDetails.dateOfAdmission
+          ? new Date(this.studentDetails.dateOfAdmission)
               .toISOString()
               .split('T')[0]
           : '';
-        const formattedBirthDate = this.studentDetails.Date_of_Birth
-          ? new Date(this.studentDetails.Date_of_Admission)
+        const formattedBirthDate = this.studentDetails.dateOfBirth
+          ? new Date(this.studentDetails.dateOfBirth)
               .toISOString()
               .split('T')[0]
           : '';
@@ -95,9 +95,9 @@ export class StudentDashboardComponent implements OnInit {
           address: this.studentDetails.address,
           city: this.studentDetails.city,
           state: this.studentDetails.state,
-          selectedBloodGroup: this.studentDetails.blood_group,
+          bloodGroup: this.studentDetails.bloodGroup,
           category: this.studentDetails.category,
-          religion: this.studentDetails.Religion,
+          religion: this.studentDetails.religion,
           gender: this.studentDetails.gender,
           dateOfBirth: formattedBirthDate,
           course: this.studentDetails.course,

@@ -29,10 +29,12 @@
       <div class="col-md-6">
         <mat-form-field class="fields">
           <mat-label>Blood Group</mat-label>
-          <mat-select formControlName="selectedBloodGroup">
-            <mat-option *ngFor="let group of bloodGroups" [value]="group">{{
-              group
-            }}</mat-option>
+          <mat-select formControlName="bloodGroup">
+            <mat-option
+              *ngFor="let group of bloodGroups"
+              [value]="group.value"
+              >{{ group.label }}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </div>
@@ -42,8 +44,8 @@
           <mat-select formControlName="category">
             <mat-option
               *ngFor="let category of categories"
-              [value]="category"
-              >{{ category }}</mat-option
+              [value]="category.value"
+              >{{ category.label }}</mat-option
             >
           </mat-select>
         </mat-form-field>
@@ -52,9 +54,11 @@
         <mat-form-field class="fields">
           <mat-label>Religion</mat-label>
           <mat-select formControlName="religion">
-            <mat-option *ngFor="let religion of religions" [value]="religion">{{
-              religion
-            }}</mat-option>
+            <mat-option
+              *ngFor="let religion of religions"
+              [value]="religion.value"
+              >{{ religion.label }}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </div>
@@ -62,8 +66,8 @@
         <mat-form-field class="fields">
           <mat-label>Course</mat-label>
           <mat-select formControlName="course">
-            <mat-option *ngFor="let course of courses" [value]="course">{{
-              course
+            <mat-option *ngFor="let course of courses" [value]="course.value">{{
+              course.label
             }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -73,8 +77,8 @@
         <mat-form-field class="fields">
           <mat-label>Gender</mat-label>
           <mat-select formControlName="gender">
-            <mat-option *ngFor="let gender of genders" [value]="gender">{{
-              gender
+            <mat-option *ngFor="let gender of genders" [value]="gender.value">{{
+              gender.label
             }}</mat-option>
           </mat-select>
         </mat-form-field>

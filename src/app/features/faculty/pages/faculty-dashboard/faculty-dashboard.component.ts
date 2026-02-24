@@ -11,27 +11,49 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./faculty-dashboard.component.scss'],
 })
 export class FacultyDashboardComponent {
-  mis: number = 0;
+  mis: string = '';
   student: any;
   facultyDetails: any = null;
   loading = true;
   selectedFile!: File;
   imagePreview: string | null = null;
   userId = 'USER_ID_HERE';
-  bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-  categories: string[] = ['General', 'OBC', 'SC', 'ST', 'EWS'];
-  religions: string[] = [
-    'Hindu',
-    'Muslim',
-    'Christian',
-    'Sikh',
-    'Buddhist',
-    'Jain',
-    'Parsi',
-    'Jewish',
-    'Other',
+  bloodGroups = [
+    { label: 'A+', value: 'A_POSITIVE' },
+    { label: 'A-', value: 'A_NEGATIVE' },
+    { label: 'B+', value: 'B_POSITIVE' },
+    { label: 'B-', value: 'B_NEGATIVE' },
+    { label: 'AB+', value: 'AB_POSITIVE' },
+    { label: 'AB-', value: 'AB_NEGATIVE' },
+    { label: 'O+', value: 'O_POSITIVE' },
+    { label: 'O-', value: 'O_NEGATIVE' },
   ];
-  courses: string[] = ['B.Tech', 'M.Tech'];
+  categories = [
+    { label: 'General', value: 'GENERAL' },
+    { label: 'OBC', value: 'OBC' },
+    { label: 'SC', value: 'SC' },
+    { label: 'ST', value: 'ST' },
+    { label: 'EWS', value: 'EWS' },
+  ];
+  religions = [
+    { label: 'Hindu', value: 'HINDU' },
+    { label: 'Muslim', value: 'MUSLIM' },
+    { label: 'Christian', value: 'CHRISTIAN' },
+    { label: 'Sikh', value: 'SIKH' },
+    { label: 'Buddhist', value: 'BUDDHIST' },
+    { label: 'Jain', value: 'JAIN' },
+    { label: 'Parsi', value: 'PARSI' },
+    { label: 'Other', value: 'OTHER' },
+  ];
+  courses = [
+    { label: 'B.Tech', value: 'BTECH' },
+    { label: 'M.Tech', value: 'MTECH' },
+  ];
+  genders = [
+    { label: 'Male', value: 'MALE' },
+    { label: 'Female', value: 'FEMALE' },
+    { label: 'Other', value: 'OTHER' },
+  ];
   maxDate = new Date();
   facultyFormGroup: FormGroup;
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -47,7 +69,7 @@ export class FacultyDashboardComponent {
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      selectedBloodGroup: ['', Validators.required],
+      bloodGroup: ['', Validators.required],
       category: ['', Validators.required],
       religion: ['', Validators.required],
       gender: ['', Validators.required],
@@ -71,7 +93,7 @@ export class FacultyDashboardComponent {
       next: (res: any) => {
         console.log(res);
         this.student = res;
-        this.facultyDetails = res.facultyDetailsId;
+        this.facultyDetails = res.facultyDetails;
         this.imagePreview = res.profileImage;
         sessionStorage.setItem(
           'profileImage',
@@ -79,13 +101,13 @@ export class FacultyDashboardComponent {
         );
         this.loading = false;
         if (this.facultyDetails) {
-          const formattedJoiningDate = this.facultyDetails.Date_of_Joining
-            ? new Date(this.facultyDetails.Date_of_Joining)
+          const formattedJoiningDate = this.facultyDetails.dateOfJoining
+            ? new Date(this.facultyDetails.dateOfJoining)
                 .toISOString()
                 .split('T')[0]
             : '';
-          const formattedBirthDate = this.facultyDetails.Date_of_Birth
-            ? new Date(this.facultyDetails.Date_of_Birth)
+          const formattedBirthDate = this.facultyDetails.dateOfBirth
+            ? new Date(this.facultyDetails.dateOfBirth)
                 .toISOString()
                 .split('T')[0]
             : '';
@@ -93,9 +115,9 @@ export class FacultyDashboardComponent {
             address: this.facultyDetails.address,
             city: this.facultyDetails.city,
             state: this.facultyDetails.state,
-            selectedBloodGroup: this.facultyDetails.blood_group,
+            bloodGroup: this.facultyDetails.bloodGroup,
             category: this.facultyDetails.category,
-            religion: this.facultyDetails.Religion,
+            religion: this.facultyDetails.religion,
             gender: this.facultyDetails.gender,
             dateOfBirth: formattedBirthDate,
             course: this.facultyDetails.course,
@@ -172,7 +194,7 @@ export class FacultyDashboardComponent {
       mis: this.mis,
       ...this.facultyFormGroup.value,
     };
-    this.facultyService.addFacultyDetails(finalData).subscribe({
+    this.facultyService.addFacultyDetails(this.mis, finalData).subscribe({
       next: (res) => {
         this.showSuccess('Faculty details saved successfully!');
       },

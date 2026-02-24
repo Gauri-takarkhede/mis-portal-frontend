@@ -12,44 +12,63 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./add-student.component.scss'],
 })
 export class AddStudentComponent implements OnInit {
-  @Output() goToALlStudentsStep = new EventEmitter<void>();
+  @Output() goToAllStudentsStep = new EventEmitter<void>();
   student: any = null;
   loading = false;
-  bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-  categories: string[] = ['General', 'OBC', 'SC', 'ST', 'EWS'];
-  religions: string[] = [
-    'Hindu',
-    'Muslim',
-    'Christian',
-    'Sikh',
-    'Buddhist',
-    'Jain',
-    'Parsi',
-    'Jewish',
-    'Other',
+  bloodGroups = [
+    { label: 'A+', value: 'A_POSITIVE' },
+    { label: 'A-', value: 'A_NEGATIVE' },
+    { label: 'B+', value: 'B_POSITIVE' },
+    { label: 'B-', value: 'B_NEGATIVE' },
+    { label: 'AB+', value: 'AB_POSITIVE' },
+    { label: 'AB-', value: 'AB_NEGATIVE' },
+    { label: 'O+', value: 'O_POSITIVE' },
+    { label: 'O-', value: 'O_NEGATIVE' },
   ];
-  courses: string[] = ['B.Tech', 'M.Tech'];
-  departments: string[] = [
-    'Computer',
-    'Electronics',
-    'Electrical',
-    'Mechanical',
-    'Civil',
+  categories = [
+    { label: 'General', value: 'GENERAL' },
+    { label: 'OBC', value: 'OBC' },
+    { label: 'SC', value: 'SC' },
+    { label: 'ST', value: 'ST' },
+    { label: 'EWS', value: 'EWS' },
   ];
-  genders: string[] = ['Female', 'Male', 'Prefer not to say'];
+  religions = [
+    { label: 'Hindu', value: 'HINDU' },
+    { label: 'Muslim', value: 'MUSLIM' },
+    { label: 'Christian', value: 'CHRISTIAN' },
+    { label: 'Sikh', value: 'SIKH' },
+    { label: 'Buddhist', value: 'BUDDHIST' },
+    { label: 'Jain', value: 'JAIN' },
+    { label: 'Parsi', value: 'PARSI' },
+    { label: 'Other', value: 'OTHER' },
+  ];
+  courses = [
+    { label: 'B.Tech', value: 'BTECH' },
+    { label: 'M.Tech', value: 'MTECH' },
+  ];
+  departments = [
+    { label: 'Computer', value: 'COMPUTER' },
+    { label: 'Electronics', value: 'ELECTRONICS' },
+    { label: 'Electrical', value: 'ELECTRICAL' },
+    { label: 'Mechanical', value: 'MECHANICAL' },
+    { label: 'Civil', value: 'CIVIL' },
+  ];
+  genders = [
+    { label: 'Male', value: 'MALE' },
+    { label: 'Female', value: 'FEMALE' },
+    { label: 'Other', value: 'OTHER' },
+  ];
   maxDate = new Date();
   personalDetailsFormGroup: FormGroup;
   academicsFormGroup: FormGroup;
   studentFormGroup: FormGroup;
   showDeatailsTab: boolean = false;
-  mis: number = 0;
+  mis: string = '';
 
   constructor(
-    private studentService: StudentService,
-    private route: ActivatedRoute,
     private auth: AuthService,
     private fb: FormBuilder,
-    private facultyService: FacultyService,
+    private studentService: StudentService,
     private snackBar: MatSnackBar,
     private router: Router,
   ) {
@@ -59,12 +78,13 @@ export class AddStudentComponent implements OnInit {
       email: ['', Validators.required],
       department: ['', Validators.required],
       password: ['', Validators.required],
+      phone: ['', Validators.required],
     });
     this.personalDetailsFormGroup = this.fb.group({
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      selectedBloodGroup: ['', Validators.required],
+      bloodGroup: ['', Validators.required],
       category: ['', Validators.required],
       religion: ['', Validators.required],
       gender: ['', Validators.required],
@@ -85,12 +105,22 @@ export class AddStudentComponent implements OnInit {
       return;
     }
 
-    const { name, email, mis, password, department } =
+    const { name, email, mis, password, department, phone } =
       this.studentFormGroup.value;
-    const role = 'student';
+    const username = name;
+    const role = 'STUDENT';
+    const dept = department.toUpperCase();
     this.mis = mis;
 
-    const payload = { name, email, mis, password, department, role };
+    const payload = {
+      username,
+      email,
+      mis,
+      password,
+      department: dept,
+      role,
+      phone,
+    };
 
     this.auth.userRegister(payload).subscribe({
       next: (res) => {
@@ -112,11 +142,16 @@ export class AddStudentComponent implements OnInit {
       return;
     }
     const finalData = {
-      mis: this.mis,
       ...this.personalDetailsFormGroup.value,
       ...this.academicsFormGroup.value,
+      dateOfBirth: this.formatDate(
+        this.personalDetailsFormGroup.value.dateOfBirth,
+      ),
+      dateOfAdmission: this.formatDate(
+        this.academicsFormGroup.value.dateOfAdmission,
+      ),
     };
-    this.facultyService.addStudentDetails(finalData).subscribe({
+    this.studentService.addStudentDetails(this.mis, finalData).subscribe({
       next: (res) => {
         this.showSuccess('Student details saved successfully!');
 
@@ -124,12 +159,16 @@ export class AddStudentComponent implements OnInit {
         this.resetForm(this.personalDetailsFormGroup);
         this.resetForm(this.academicsFormGroup);
         this.showDeatailsTab = false;
-        this.goToALlStudentsStep.emit();
+        this.goToAllStudentsStep.emit();
       },
       error: (err) => {
         this.showError('Something went wrong!');
       },
     });
+  }
+
+  formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
   }
 
   showSuccess(message: string) {
