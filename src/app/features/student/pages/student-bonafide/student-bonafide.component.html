@@ -49,10 +49,9 @@
       <th mat-header-cell *matHeaderCellDef>Download</th>
       <td mat-cell *matCellDef="let r">
         <button
-          mat-button
-          color="primary"
-          *ngIf="r.status === 'approved'"
-          (click)="download(r._id)"
+          class="btn btn-primary"
+          *ngIf="r.status === 'APPROVED'"
+          (click)="download(r.id)"
         >
           Download
         </button>

@@ -61,12 +61,22 @@ export class StudentBonafideComponent implements OnInit {
   }
 
   download(id: string) {
-    this.bonafideService.downloadBonafide(id).subscribe((pdfBlob) => {
-      const fileURL = window.URL.createObjectURL(pdfBlob);
-      const a = document.createElement('a');
-      a.href = fileURL;
-      a.download = 'bonafide.pdf';
-      a.click();
-    });
+    this.bonafideService.downloadBonafide(id).subscribe(
+      (response: Blob) => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'bonafide_certificate.pdf';
+        a.click();
+
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.error('Download failed', error);
+      },
+    );
   }
 }

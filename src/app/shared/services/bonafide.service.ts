@@ -64,8 +64,12 @@ export class BonafideService {
   }
 
   downloadBonafide(id: String) {
+    const token = sessionStorage.getItem('token');
     return this.http.get(`${this.base}/download/${id}`, {
       responseType: 'blob',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
   }
 }
