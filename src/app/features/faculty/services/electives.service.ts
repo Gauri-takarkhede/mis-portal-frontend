@@ -1,25 +1,42 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+export interface Elective {
+  id: string;
+  moduleName: string;
+  registrationDeadline: string;
+  subjects: any[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class ElectivesService {
-  constructor() {}
-  private electivesSubject = new BehaviorSubject<any[]>([]);
+  private electivesSubject = new BehaviorSubject<Elective[]>([]);
   electives$ = this.electivesSubject.asObservable();
 
-  setElectives(data: any[]) {
+  // Optional getter (clean access)
+  get currentElectives(): Elective[] {
+    return this.electivesSubject.value;
+  }
+
+  setElectives(data: Elective[]) {
     this.electivesSubject.next(data);
   }
 
-  addElective(newElective: any) {
-    const current = this.electivesSubject.value;
-    this.electivesSubject.next([...current, newElective]);
+  addElective(newElective: Elective) {
+    this.electivesSubject.next([...this.currentElectives, newElective]);
   }
 
   removeElective(id: string) {
-    const current = this.electivesSubject.value;
-    this.electivesSubject.next(current.filter((e) => e._id !== id));
+    this.electivesSubject.next(
+      this.currentElectives.filter((e) => e.id !== id),
+    );
+  }
+
+  updateElective(updated: Elective) {
+    this.electivesSubject.next(
+      this.currentElectives.map((e) => (e.id === updated.id ? updated : e)),
+    );
   }
 }

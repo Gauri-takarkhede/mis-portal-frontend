@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class FacultyService {
-  private baseUrl = `${environment.apiUrl}/api/electives`;
+  private baseUrl = `${environment.apiUrl}/api/elective`;
   private facultyBaseUrl = `${environment.apiUrl}/api/faculty`;
 
   constructor(private http: HttpClient) {}
@@ -20,10 +20,9 @@ export class FacultyService {
     });
   }
 
-  // CREATE elective module
   createElective(payload: any) {
     const token = sessionStorage.getItem('token');
-    return this.http.post(`${this.baseUrl}/create`, payload, {
+    return this.http.post(this.baseUrl, payload, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -32,7 +31,12 @@ export class FacultyService {
 
   // GET all electives
   getAllElectives() {
-    return this.http.get(`${this.baseUrl}`);
+    const token = sessionStorage.getItem('token');
+    return this.http.get(`${this.baseUrl}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   // PUBLISH elective

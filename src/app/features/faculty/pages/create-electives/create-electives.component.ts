@@ -18,6 +18,7 @@ export class CreateElectivesComponent {
   ) {
     this.electiveForm = this.fb.group({
       moduleName: ['', Validators.required],
+      deadline: ['', Validators.required],
       subjectsArr: this.fb.array([]), // FormArray of FormGroup { subject, maxLimit }
     });
 
@@ -51,17 +52,15 @@ export class CreateElectivesComponent {
       return;
     }
 
-    const { moduleName, subjectsArr } = this.electiveForm.value;
-    const subjects = subjectsArr.map((s: any) => s.subject);
-    const maxLimitsObj: Record<string, number> = {};
-    subjectsArr.forEach((s: any) => {
-      maxLimitsObj[s.subject] = Number(s.maxLimit);
-    });
+    const { moduleName, deadline, subjectsArr } = this.electiveForm.value;
 
     const payload = {
       moduleName,
-      subjects,
-      maxLimits: maxLimitsObj,
+      registrationDeadline: deadline,
+      subjects: subjectsArr.map((s: any) => ({
+        subjectName: s.subject,
+        maxLimit: Number(s.maxLimit),
+      })),
     };
 
     this.facultyService.createElective(payload).subscribe({
@@ -74,8 +73,7 @@ export class CreateElectivesComponent {
         }
         this.addSubject();
         console.log(res);
-        const newElective = res.elective;
-        this.electivesService.addElective(newElective);
+        this.electivesService.addElective(res);
       },
       error: (err) => {
         console.error(err);

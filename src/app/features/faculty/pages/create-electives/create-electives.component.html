@@ -2,9 +2,15 @@
   <h2>Create Elective Module</h2>
 
   <form [formGroup]="electiveForm" (ngSubmit)="createModule()">
-    <div class="mb-3">
-      <label>Module Name</label>
-      <input formControlName="moduleName" class="form-control" />
+    <div class="row mb-3">
+      <div class="col">
+        <label>Module Name</label>
+        <input formControlName="moduleName" class="form-control" />
+      </div>
+      <div class="col">
+        <label>Last Date to Fill the Form</label>
+        <input type="date" formControlName="deadline" class="form-control" />
+      </div>
     </div>
 
     <h3>Subjects</h3>
