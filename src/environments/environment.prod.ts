@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://student-mis-portal-angular.onrender.com',
+  apiUrl: 'https://mis-portal-backend-g0g8.onrender.com',
 };
