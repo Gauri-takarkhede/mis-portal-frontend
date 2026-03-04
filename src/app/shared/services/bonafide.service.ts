@@ -31,6 +31,8 @@ export class BonafideService {
   }
 
   downloadBonafide(id: String) {
-    return this.http.get(`${this.base}/download/${id}`);
+    return this.http.get(`${this.base}/download/${id}`, {
+      responseType: 'blob',
+    });
   }
 }
