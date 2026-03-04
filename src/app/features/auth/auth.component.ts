@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/auth.service';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-auth',
@@ -11,17 +12,18 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   loginForm: FormGroup;
   loading = false;
-  errorMsg = '';
+  errorMsg: string = '';
   hide: boolean = true;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService,
   ) {
     this.loginForm = this.fb.group({
-      mis: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      mis: ['', [Validators.required, Validators.minLength(9)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -30,7 +32,10 @@ export class AuthComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.invalid) {
+      //  this.sharedService.showError()
+      return;
+    }
 
     this.loading = true;
     let { mis, password } = this.loginForm.value;
@@ -39,7 +44,6 @@ export class AuthComponent {
     this.authService.userLogin({ mis, password }).subscribe({
       next: (res: any) => {
         this.loading = false;
-        this.errorMsg = '';
 
         sessionStorage.setItem('token', res.token);
 
@@ -48,7 +52,8 @@ export class AuthComponent {
       },
       error: (err) => {
         this.loading = false;
-        this.errorMsg = err.error?.message || 'Invalid MIS or Password';
+        this.errorMsg = err?.error || 'Invalid MIS or Password';
+        this.sharedService.showError(this.errorMsg);
       },
     });
   }

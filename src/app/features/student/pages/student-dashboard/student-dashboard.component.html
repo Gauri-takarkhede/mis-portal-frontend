@@ -1,7 +1,7 @@
 <div class="bg-gray-100 min-h-screen">
   <!-- Loading -->
-  <div *ngIf="loading" class="text-center text-gray-600">
-    Loading your dashboard...
+  <div *ngIf="loading" class="loader">
+    <mat-spinner></mat-spinner>
   </div>
 
   <ng-container *ngIf="!loading">

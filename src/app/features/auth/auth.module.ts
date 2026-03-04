@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [AuthComponent, StudentRegisterComponent],
@@ -21,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatCardModule,
     MatSelectModule,
+    SharedModule,
   ],
 })
 export class AuthModule {}

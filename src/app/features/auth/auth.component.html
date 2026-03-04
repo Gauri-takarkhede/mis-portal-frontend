@@ -6,11 +6,25 @@
       <mat-card-content class="p-4">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <p>
+            <!-- Mat MIS -->
             <mat-form-field>
               <mat-label>MIS Number</mat-label>
               <div class="d-flex">
                 <input matInput formControlName="mis" />
               </div>
+              <mat-error>
+                <span
+                  *ngIf="
+                    loginForm.get('mis')?.hasError('required') &&
+                    loginForm.get('mis')?.touched
+                  "
+                >
+                  MIS is required
+                </span>
+                <span *ngIf="loginForm.get('mis')?.hasError('minlength')">
+                  MIS must be 9 digits
+                </span>
+              </mat-error>
             </mat-form-field>
           </p>
 
@@ -31,6 +45,19 @@
                   }}</mat-icon>
                 </span>
               </div>
+              <mat-error>
+                <span
+                  *ngIf="
+                    loginForm.get('password')?.hasError('required') &&
+                    loginForm.get('password')?.touched
+                  "
+                >
+                  Password is required
+                </span>
+                <span *ngIf="loginForm.get('password')?.hasError('minlength')">
+                  Password must be at least 6 characters
+                </span>
+              </mat-error>
             </mat-form-field>
           </p>
 

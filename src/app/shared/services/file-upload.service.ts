@@ -11,24 +11,10 @@ export class FileUploadService {
   constructor(private http: HttpClient) {}
 
   uploadPhoto(data: any) {
-    const token = sessionStorage.getItem('token');
-    return this.http.put(`${this.base}/upload`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return this.http.put(`${this.base}/upload`, data);
   }
 
   removePhoto() {
-    const token = sessionStorage.getItem('token');
-    return this.http.put(
-      `${this.base}/remove`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
+    return this.http.put(`${this.base}/remove`, {});
   }
 }

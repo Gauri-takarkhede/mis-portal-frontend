@@ -26,6 +26,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AddDetailsBtnComponent } from './pages/students-mngt/add-details-btn/add-details-btn.component';
 import { AddDetailsModalComponent } from './pages/students-mngt/add-details-modal/add-details-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AgGridModule,
     SharedModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     FacultyDashboardComponent,

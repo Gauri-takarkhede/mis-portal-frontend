@@ -12,31 +12,16 @@ export class FacultyService {
   constructor(private http: HttpClient) {}
 
   getProfile(mis: any) {
-    const token = sessionStorage.getItem('token');
-    return this.http.get(`${this.facultyBaseUrl}/profile/${mis}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return this.http.get(`${this.facultyBaseUrl}/profile/${mis}`);
   }
 
   createElective(payload: any) {
-    const token = sessionStorage.getItem('token');
-    return this.http.post(this.baseUrl, payload, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return this.http.post(this.baseUrl, payload);
   }
 
   // GET all electives
   getAllElectives() {
-    const token = sessionStorage.getItem('token');
-    return this.http.get(`${this.baseUrl}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return this.http.get(`${this.baseUrl}`);
   }
 
   // PUBLISH elective
@@ -45,25 +30,11 @@ export class FacultyService {
   }
 
   allocate(moduleId: string) {
-    const token = sessionStorage.getItem('token');
-    return this.http.post(
-      `${this.baseUrl}/allocate/${moduleId}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
+    return this.http.post(`${this.baseUrl}/allocate/${moduleId}`, {});
   }
 
   deleteElective(moduleId: string) {
-    const token = sessionStorage.getItem('token');
-    return this.http.delete(`${this.baseUrl}/delete/${moduleId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return this.http.delete(`${this.baseUrl}/delete/${moduleId}`);
   }
 
   getAllocations(moduleId: string) {
@@ -91,12 +62,6 @@ export class FacultyService {
   }
 
   addFacultyDetails(mis: string, data: any) {
-    const token = sessionStorage.getItem('token');
-
-    return this.http.post(`${this.facultyBaseUrl}/add-details/${mis}`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return this.http.post(`${this.facultyBaseUrl}/add-details/${mis}`, data);
   }
 }
