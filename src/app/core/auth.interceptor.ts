@@ -12,12 +12,15 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    let authReq = req;
     if (req.url.includes('/auth')) {
-      return next.handle(req);
+      authReq = req.clone({
+        withCredentials: true,
+      });
+      return next.handle(authReq);
     }
 
     const token = this.authService.getAccessToken();
-    let authReq = req;
 
     if (token) {
       authReq = req.clone({
