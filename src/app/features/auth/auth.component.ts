@@ -45,7 +45,7 @@ export class AuthComponent {
       next: (res: any) => {
         this.loading = false;
 
-        sessionStorage.setItem('token', res.token);
+        this.authService.setAccessToken(res.accessToken);
 
         // Redirect to student dashboard
         this.router.navigate(['/home']);

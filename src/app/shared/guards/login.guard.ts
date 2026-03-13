@@ -5,14 +5,18 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { AuthService } from 'src/app/core/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {}
   canActivate(): boolean {
-    const token = sessionStorage.getItem('token');
+    const token = this.authService.getAccessToken();
 
     if (token) {
       // User already logged in → redirect to home

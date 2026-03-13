@@ -14,13 +14,13 @@ export class SidebarComponent implements OnInit {
   public studentName: String | null = '';
   constructor(
     private router: Router,
-    private auth: AuthService,
+    private authService: AuthService,
     private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {
-    this.studentName = this.auth.getUserName();
-    this.userRole = this.auth.getUserRole();
+    this.studentName = this.authService.getUserName();
+    this.userRole = this.authService.getUserRole();
     const image = sessionStorage.getItem('profileImage')
       ? sessionStorage.getItem('profileImage')
       : '';
@@ -31,7 +31,11 @@ export class SidebarComponent implements OnInit {
     }
   }
   signOut(): void {
-    sessionStorage.clear();
-    this.router.navigate(['/']);
+    this.authService.logout().subscribe({
+      next: () => {
+        this.authService.setAccessToken(null);
+        this.router.navigate(['/']);
+      },
+    });
   }
 }
