@@ -8,8 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
   private API = `${environment.apiUrl}/api/auth`;
-  private tokenKey = 'token';
-  // private roleKey = 'misRole';
+  accessToken: string | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -18,31 +17,39 @@ export class AuthService {
   }
 
   userLogin(data: any) {
-    return this.http.post(`${this.API}/login`, data);
+    return this.http.post(`${this.API}/login`, data, { withCredentials: true });
   }
 
   logout() {
-    sessionStorage.clear();
+    return this.http.post(`${this.API}/logout`, {}, { withCredentials: true });
+  }
+
+  setAccessToken(token: string | null) {
+    this.accessToken = token;
+  }
+
+  getAccessToken() {
+    return this.accessToken;
+  }
+
+  refreshToken() {
+    return this.http.post(`${this.API}/refresh`, {}, { withCredentials: true });
   }
 
   isLoggedIn() {
-    return !!sessionStorage.getItem(this.tokenKey);
+    return !!this.accessToken;
   }
 
   getUser() {
-    const token = this.getToken();
+    const token = this.getAccessToken();
     if (!token) return null;
 
     const decoded: any = jwtDecode(token);
     return decoded;
   }
 
-  getToken(): string | null {
-    return sessionStorage.getItem('token');
-  }
-
   getUserRole(): string | null {
-    const token = this.getToken();
+    const token = this.getAccessToken();
     if (!token) return null;
 
     const decoded: any = jwtDecode(token);
@@ -50,7 +57,7 @@ export class AuthService {
   }
 
   getUserName(): string | null {
-    const token = this.getToken();
+    const token = this.getAccessToken();
     if (!token) return null;
 
     const decoded: any = jwtDecode(token);
@@ -58,7 +65,7 @@ export class AuthService {
   }
 
   getUserMis(): string | null {
-    const token = this.getToken();
+    const token = this.getAccessToken();
     if (!token) return null;
 
     const decoded: any = jwtDecode(token);

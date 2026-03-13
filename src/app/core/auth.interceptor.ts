@@ -4,21 +4,49 @@ import {
   HttpHandler,
   HttpInterceptor,
 } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { catchError, switchMap, throwError } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private authService: AuthService) {}
+
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const token = sessionStorage.getItem('token');
+    if (req.url.includes('/auth')) {
+      return next.handle(req);
+    }
+
+    const token = this.authService.getAccessToken();
+    let authReq = req;
 
     if (token) {
-      const authReq = req.clone({
+      authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
         },
       });
-      return next.handle(authReq);
     }
 
-    return next.handle(req);
+    return next.handle(authReq).pipe(
+      catchError((error) => {
+        if (error.status === 401) {
+          return this.authService.refreshToken().pipe(
+            switchMap((response: any) => {
+              this.authService.setAccessToken(response.accessToken);
+
+              const newReq = req.clone({
+                setHeaders: {
+                  Authorization: `Bearer ${response.accessToken}`,
+                },
+              });
+
+              return next.handle(newReq);
+            }),
+          );
+        }
+
+        return throwError(() => error);
+      }),
+    );
   }
 }
