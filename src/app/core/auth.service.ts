@@ -17,11 +17,11 @@ export class AuthService {
   }
 
   userLogin(data: any) {
-    return this.http.post(`${this.API}/login`, data, { withCredentials: true });
+    return this.http.post(`${this.API}/login`, data);
   }
 
   logout() {
-    return this.http.post(`${this.API}/logout`, {}, { withCredentials: true });
+    return this.http.post(`${this.API}/logout`, {});
   }
 
   setAccessToken(token: string | null) {
@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   refreshToken() {
-    return this.http.post(`${this.API}/refresh`, {}, { withCredentials: true });
+    return this.http.post(`${this.API}/refresh`, {});
   }
 
   isLoggedIn() {
