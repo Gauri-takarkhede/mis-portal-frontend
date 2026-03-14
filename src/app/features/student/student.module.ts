@@ -16,6 +16,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { StudentScholarshipComponent } from './pages/student-scholarship/student-scholarship.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     StudentElectivesComponent,
     StudentBonafideComponent,
     StudentResultsComponent,
+    StudentScholarshipComponent,
   ],
   imports: [
     CommonModule,
@@ -38,12 +42,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatNativeDateModule,
     MatTabsModule,
     MatProgressSpinnerModule,
+    MatCardModule,
+    MatTooltipModule,
   ],
   exports: [
     StudentDashboardComponent,
     StudentElectivesComponent,
     StudentBonafideComponent,
     StudentResultsComponent,
+    StudentScholarshipComponent,
   ],
 })
 export class StudentModule {}

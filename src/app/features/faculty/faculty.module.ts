@@ -27,6 +27,11 @@ import { AddDetailsBtnComponent } from './pages/students-mngt/add-details-btn/ad
 import { AddDetailsModalComponent } from './pages/students-mngt/add-details-modal/add-details-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FacultyScholarshipComponent } from './pages/faculty-scholarship/faculty-scholarship.component';
+import { MatButtonModule } from '@angular/material/button';
+import { AddScholarshipDialogComponent } from './pages/faculty-scholarship/add-scholarship-dialog/add-scholarship-dialog.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -43,6 +48,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AllStudentsComponent,
     AddDetailsBtnComponent,
     AddDetailsModalComponent,
+    FacultyScholarshipComponent,
+    AddScholarshipDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -60,12 +67,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SharedModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatButtonModule,
+    MatCardModule,
+    MatTooltipModule,
   ],
   exports: [
     FacultyDashboardComponent,
     FacultyElectivesComponent,
     FacultyBonafideComponent,
     FacultyAddResultComponent,
+    FacultyScholarshipComponent,
   ],
 })
 export class FacultyModule {}
