@@ -1,0 +1,6 @@
+<ng-container *ngIf="userRole === 'STUDENT'">
+  <app-student-scholarship></app-student-scholarship>
+</ng-container>
+<ng-container *ngIf="userRole === 'FACULTY'">
+  <app-faculty-scholarship></app-faculty-scholarship>
+</ng-container>

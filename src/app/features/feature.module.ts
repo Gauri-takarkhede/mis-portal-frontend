@@ -13,6 +13,7 @@ import { QueryComponent } from './query/query.component';
 import { StudentModule } from './student/student.module';
 import { FacultyModule } from './faculty/faculty.module';
 import { FeatureRoutingModule } from './feature-routing.module';
+import { ScholarshipComponent } from './scholarship/scholarship.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FeatureRoutingModule } from './feature-routing.module';
     BonafideComponent,
     ResultsComponent,
     QueryComponent,
+    ScholarshipComponent,
   ],
   imports: [
     CommonModule,
