@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './core/auth.service';
+import { LoaderService } from './shared/services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,12 @@ import { AuthService } from './core/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'Frontend';
-  constructor(private authService: AuthService) {}
+  loading$ = this.loaderService.loading$;
+
+  constructor(
+    private authService: AuthService,
+    private loaderService: LoaderService,
+  ) {}
 
   ngOnInit(): void {
     this.authService.refreshToken().subscribe({
