@@ -26,7 +26,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AddDetailsBtnComponent } from './pages/students-mngt/add-details-btn/add-details-btn.component';
 import { AddDetailsModalComponent } from './pages/students-mngt/add-details-modal/add-details-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FacultyScholarshipComponent } from './pages/faculty-scholarship/faculty-scholarship.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AddScholarshipDialogComponent } from './pages/faculty-scholarship/add-scholarship-dialog/add-scholarship-dialog.component';
@@ -66,7 +65,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AgGridModule,
     SharedModule,
     MatDialogModule,
-    MatProgressSpinnerModule,
     MatButtonModule,
     MatCardModule,
     MatTooltipModule,
