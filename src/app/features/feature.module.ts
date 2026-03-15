@@ -14,6 +14,10 @@ import { StudentModule } from './student/student.module';
 import { FacultyModule } from './faculty/faculty.module';
 import { FeatureRoutingModule } from './feature-routing.module';
 import { ScholarshipComponent } from './scholarship/scholarship.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatBadgeModule } from '@angular/material/badge';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,7 @@ import { ScholarshipComponent } from './scholarship/scholarship.component';
     ResultsComponent,
     QueryComponent,
     ScholarshipComponent,
+    NotificationsComponent,
   ],
   imports: [
     CommonModule,
@@ -34,6 +39,9 @@ import { ScholarshipComponent } from './scholarship/scholarship.component';
     StudentModule,
     FacultyModule,
     FeatureRoutingModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatBadgeModule,
   ],
 })
 export class FeatureModule {}
