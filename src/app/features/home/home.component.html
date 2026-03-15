@@ -4,8 +4,43 @@
   </mat-drawer>
 
   <div>
-    <div role="button" (click)="toggleDrawer(drawer)">
-      <mat-icon class="m-2">{{ drawer.opened ? "close" : "menu" }}</mat-icon>
+    <div class="Navbar d-flex justify-content-between p-2">
+      <mat-icon role="button" (click)="toggleDrawer(drawer)" class="m-2">{{
+        drawer.opened ? "close" : "menu"
+      }}</mat-icon>
+
+      <div
+        class="cursor-pointer m-2"
+        [matMenuTriggerFor]="menu"
+        [matBadge]="badgeCount"
+        matBadgeColor="warn"
+      >
+        <mat-icon>notifications</mat-icon>
+      </div>
+
+      <mat-menu class="p-2" #menu="matMenu">
+        <h5 class="border-bottom p-2">Notifications</h5>
+
+        <ng-container *ngIf="notifications.length; else noData">
+          <ul
+            class="p-2"
+            mat-menu-item
+            *ngFor="let n of notifications | slice: 0 : 10"
+          >
+            <li>{{ n.message }}</li>
+          </ul>
+
+          <mat-divider></mat-divider>
+
+          <button class="text-primary" mat-menu-item routerLink="notifications">
+            See All
+          </button>
+        </ng-container>
+
+        <ng-template #noData>
+          <button mat-menu-item>No notifications</button>
+        </ng-template>
+      </mat-menu>
     </div>
     <router-outlet></router-outlet>
   </div>

@@ -4,11 +4,11 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ElectivesComponent } from './electives/electives.component';
 import { BonafideComponent } from './bonafide/bonafide.component';
-import { ResultsComponent } from './results/results.component';
 import { QueryComponent } from './query/query.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { StudentsMngtComponent } from './faculty/pages/students-mngt/students-mngt.component';
 import { ScholarshipComponent } from './scholarship/scholarship.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -39,6 +39,10 @@ const routes: Routes = [
       {
         path: 'query',
         component: QueryComponent,
+      },
+      {
+        path: 'notifications',
+        component: NotificationsComponent,
       },
       {
         path: '',
